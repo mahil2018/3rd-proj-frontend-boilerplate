@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My first view</title>
+  <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+  <ul> 
+   {{#each cities}}
+    <li>{{this}}</li>
+    {{else}}
+    <p>No cities yet!</p>
+   {{/each}}
+  </ul>
+ 
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU4zv1uwUfqGGzwCj4W5PirJBLjJx6kA97-5bGHA_-Pvvp20EJQA">
+</body>
+</html>
