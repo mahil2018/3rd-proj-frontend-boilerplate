@@ -52,7 +52,7 @@ app.get('/players', (req, res, next) => {
           'photo': 'https://clutchpoints.com/wp-content/uploads/2017/10/Kobe-Bryant-e1508564618882.jpg'
         },
       ]
-      res.render('players', { players });
+      res.render('players', { players }); 
 });
 
 app.get('/teams', (req, res, next) => {
