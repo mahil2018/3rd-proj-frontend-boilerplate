@@ -1,9 +1,14 @@
-
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/exampleApp');
+const Schema   = mongoose.Schema;
 
-const Player = mongoose.model('Player', { name: String });
-
+const playerSchema = new Schema({
+     name: {String},
+     lastName : {String},
+     team: {String},
+     photo: {String}
+    });
+const Player = mongoose.model('Player', playerSchema);
+module.exports = Player;
 const nba = new Player(
   [
     {
