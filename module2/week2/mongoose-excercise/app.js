@@ -110,6 +110,7 @@ app.use(express.static(__dirname + '/public')); // new sintax without path
             console.log("Error while creating new instance", err);   
         })
 
+        
 
 
 app.listen(3000, () =>{
