@@ -11,7 +11,7 @@ const path         = require('path');
 
 
 mongoose
-  .connect('mongodb://localhost/awenome-project', {useNewUrlParser: true})
+  .connect('mongodb://localhost/awesome-project', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -50,9 +50,17 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.locals.title = 'Express - Generated with IronGenerator';
 
 
-
+//All routes Middleware go here
 const index = require('./routes/index');
 app.use('/', index);
 
+const authorRoutes = require('./routes/author-routes');
+app.use('/', authorRoutes);  // => here we don't prefix so we have to repeat '/authors' all the time
 
+// const bookRoutes = require('./routes/book-routes');
+// app.use('/books', bookRoutes);
+//this one we prefix every route with /books so we don't have to keep repeating it over and over
+app.use('/books', require('./routes/book-routes')) //this is he same as the way above, it's just saving time and instuctions
+//         route     file where the route is
+          
 module.exports = app;

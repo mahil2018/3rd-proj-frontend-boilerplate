@@ -50,9 +50,11 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.locals.title = 'Express - Generated with IronGenerator';
 
 
-
+//all routes middleware go here:
 const index = require('./routes/index');
 app.use('/', index);
 
+const authorRoutes = require('./routes/author-routes');
+app.use('/', authorRoutes);
 
 module.exports = app;

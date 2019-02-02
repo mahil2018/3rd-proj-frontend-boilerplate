@@ -1,20 +1,18 @@
-const mongoose= require('mongoose');
+const mongoose = require("mongoose");
+const Schema   = mongoose.Schema;
 
-const Schema = mongoose.Schema;
-
+//Use Schema to set our blueprint for each instance in this collection
 const authorSchema = new Schema({
-   // unless you'll have more than one property defined you need to use this: {type: String}
-    //firstName : {type: String}
-    firstName : String,
-    lastName: String,
-    nationality: String,
-    birthday: Date,
-    image_url: {type: String, default: "https://i.ytimg.com/vi/WkPoEa_I21o/hqdefault_live.jpg"},
-},{
-    // keep record on when created and updated
-    timestamps: true
-})
-const Autor = mongoose.model("Author", authorSchema);
+  firstName: String,
+  lastName : String,
+  nationality : String,
+  birthdate : Date,
+  description : String,
+  image_url: String
+  //Keep record on when document is created or updated
+//   timestamps: true
+});
 
-// export Author to make it available in other files
+const Author = mongoose.model("Author", authorSchema);
+
 module.exports = Author;
