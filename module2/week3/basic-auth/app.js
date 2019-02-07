@@ -10,6 +10,10 @@ const logger       = require('morgan');
 const path         = require('path');
 
 
+// session setup - part 1:
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session);
+
 mongoose
   .connect('mongodb://localhost/basic-auth', {useNewUrlParser: true})
   .then(x => {
@@ -37,7 +41,16 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
+ 
+//session setup - art 2
+app.use(session({
+  secret: "basic-auth-secret",
+  cookie: { maxAge: 60000 },  //piece like file that you send to the browser and you can find in the browser
+  store: new MongoStore({   // keep this user in the session while login
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  })
+}));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -54,8 +67,12 @@ app.locals.title = 'Express - Generated with IronGenerator';
 const index = require('./routes/index');  //path
 app.use('/', index);              //local host
 
-const router = require('./routes/auth');
-app.use('/', router);
+//require auth
+// const router = require('./routes/auth');
+// app.use('/', router);
+
+app.use('/', require('./routes/auth'));
+
 
 
 
