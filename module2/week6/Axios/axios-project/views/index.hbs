@@ -1,0 +1,15 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+<h1>Countries Info</h1>
+<!--  use input's id to grab the value from the input field -->
+  <input id="theInput" type="text">
+  <button id="theButton">Get the country</button>
+    
+<!-- the data we get from the API will be populated in here:   -->
+  <h2 id="countryName"></h2>
+  <p id="countryCapital"></p>
+  <a href="Get Countries">Return</a>
+  <input id="theInput" type="text" onkeyup="checkInput()">
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="indexn.js"></script>

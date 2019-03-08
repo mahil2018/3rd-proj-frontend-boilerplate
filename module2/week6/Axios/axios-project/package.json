@@ -1,10 +1,10 @@
 {
-  "name": "awesme-project",
+  "name": "axios-project",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "DEBUG=awenome-project:* nodemon ./bin/www",
+    "dev": "DEBUG=axios-project:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www"
   },
   "dependencies": {

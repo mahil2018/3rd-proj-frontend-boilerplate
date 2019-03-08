@@ -9,21 +9,19 @@
 </head>
 <body>
 <nav>
-  {{#if currentUser}}
-  <a href"/private">Super secret page</a>
-   <form action="/logout" method="POST">
-    <button type="Submit">Logout</button>
-  </form>
-  {{else}}
-  <a href="/signup">Signup</a>
-  <a href="/login">Login</a>
+    {{#if currentUser}}
+      <a href="/private">Super secret page</a>
+      <a href="/rooms/add">Creaate a room</a>
+      <form action="/logout" method="POST">
+        <button type="Submit">Logout</button>
+      </form
+      {{else}}
+      <a href="/signup">Signup</a>
+      <a href="/login">Login</a>
+     
     {{/if}}
+    <a href="/slack-login">Login with Slack</a>
     <a href="/public">Public page</a>
- 
-  <form action="/logout" method="POST">
-    <button type="Submit"> </button>
-  </form>
- 
 </nav>
 
   {{{body}}}

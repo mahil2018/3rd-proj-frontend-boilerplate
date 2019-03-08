@@ -9,16 +9,17 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
-// require coneect-flash for flash messages
-const flash = require('connect-flash');
+
 
 const session = require('express-session');
 
-//import passport
-const passport = require('passport');
+
+
+//social credentials
+const SlackStrategy = require('passport-slack').Strategy;
 
 //impor passport docs from config folder
-require('./config/passport-setup');
+const passportSetup = require('./config/passport/passport-setup');  //everything that is exported with this passportSetup
 
 mongoose
   .connect('mongodb://localhost/signuploginlogout', {useNewUrlParser: true})
@@ -68,30 +69,22 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// passport super power
-app.use(passport.initialize()); // 'fires' the passport packaage
-app.use(passport.session());    // connects passport to the session
 
-// to activate flash messages:
-app.use(flash());
-
-app.use((req, res, next) => {
-  res.locals.messages = req.flash();
-  if(req.user){
-    res.locals.currentUser = req.user;  // make currentUser variable global available in all hbs whenever we have to use
-  } 
-  next();
-})
-
+// must come after th session:
+passportSetup(app);
 
 // Routes MIDDLEWARE
 const index = require('./routes/index');
 app.use('/', index);
 
 //require auth routs so the app knows they exist
-const authRoutes = require('./routes/auth-routes');
-app.use('/', authRoutes);
+// const authRoutes = require('./routes/auth-routes');
+// app.use('/', authRoutes);
+
+
 
 app.use('/', require('./routes/auth-routes'));
 app.use('/', require('./routes/user-routes'));
+app.use('/', require('./routes/room-routes'));
+
 module.exports = app;

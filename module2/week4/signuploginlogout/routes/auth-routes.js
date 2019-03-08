@@ -42,14 +42,12 @@ User.findOne({ email: userEmail })
       req.login(user, (err) => {
         if(err){
           // req.flash.error = 'some message here'
-          req.flash('error', 'Auto login does not owrk so please log in manually');
+          req.flash('error', 'Auto login does not work so please log in manually');
           req.redirect('/login');
           return;
         }
         res.redirect('/private');
-      }
-      
-      )
+      })
     })  
     .catch( err => next(err)); // closing User.create
   })
@@ -58,6 +56,7 @@ User.findOne({ email: userEmail })
 
     //=========================LOGIN========
 router.get('/login', (req, res, next) =>{
+    console.log(user);
     res.render('auth/login');
   })
 
@@ -74,6 +73,21 @@ router.post('/logout', (req, res, next) =>{
   req.logout();  // logout() method comes from passport and atkes care of the destroying the session for
   res.redirect('/login');
 })
+
+//////////////////////////////////////////////////////
+
+
+///////////////SLACK LOGIN ///////////////////////
+router.get('/slack-login', passport.authenticate('slack'));
+//  callbackURL: '/slack/callback' => from 'slack-strategy.js'
+router.get('/slack/callback', passport.authenticate('slack', {
+  successReturnToOrRedirect: '/private',          //===============================
+  successFlash: 'Slack login successful',
+  failureRedirect: '/login',
+  failureMessage: 'Slack login failed, please try to login manually'
+}));
+
+//   /slack/callback'
 
 
 
