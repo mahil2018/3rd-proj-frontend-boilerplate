@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-// import the npm package's component
-import ReactPlayer from "react-player";
-import User from "./component/User"
+import ReactPlayer from 'react-player'
 import "./App.css";
+import "./component/User.js"
 
 class App extends Component {
   render() {
-    const formatName = (user) => {
-      return `${user.firstName} ${user.lastName}`;
-    };
+    return (
+      <div className="App">
+        <User firstName="Harper" />
+        <User firstName="Ana" />
+        
+      </div>
+    );
+  
     const user = {
       firstName: 'Harper',
       lastName: 'Perez',
@@ -29,8 +33,8 @@ class App extends Component {
     );
     return (
       <div className="App">
-        <User firstName='Harper'/>
-        <ReactPlayer url="https://vimeo.com/channels/top/22439234" />
+        <h1> Hello Ironhackers! </h1>
+        {element}
       </div>
     );
   }
