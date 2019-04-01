@@ -4,7 +4,8 @@ import './App.css';
 import Header from './components/Header.js';
 import User from './components/User';
 import { listItems, MoviesList } from './components/ListDemo';
-import DynamicMoviesList from './components/dynamicListsDemo/DynamicMoviesList'
+import DynamicMoviesList from './components/dynamicListsDemo/DynamicMoviesList';
+import TextareaAndSelectTagDemo from './components/TextareaAndSelectTagDemo';
 
 class App extends Component {
   state = {
@@ -66,6 +67,7 @@ class App extends Component {
         </div>
         <hr/>
         <DynamicMoviesList />
+        <TextareaAndSelectTagDemo />
       </div>
     );
   }
