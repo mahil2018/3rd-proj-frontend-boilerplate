@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+
 class Signup extends Component {
     constructor(props){
+        // props.currentUser & props.onUserChange
         super(props);
         this.state = {
             // these are req.body.name of each input field in the form
             fullName: "",
             email:"",
-            originalPassword:""
+            originalPassword:"",
+            message: null,
         }
     }
     //this function is used in all events that has name and value
@@ -25,11 +28,11 @@ class Signup extends Component {
         )
         .then(responseFromServer =>{
             console.log('response is: ', responseFromServer.data)
-            // const {userDoc} = responseFromServer.data
-            // this.props.onUserChange(userDoc) // ask question
+            const { userDoc } = responseFromServer.data;
+            this.props.onUserChange(userDoc) // onUserChange= { userDoc => this.syncCurrentUser(userDoc)}
         })
         .catch(err =>{
-            console.log('error while signup: ', err)
+            // console.log('error while signup: ', err)
             if(err.response && err.response.data){
                 return this.setState({message: err.response.data.message})
             }
@@ -37,6 +40,15 @@ class Signup extends Component {
     }
 
     render(){
+            if (this.props.currentUser){
+                return(
+                <section>
+                    <h2> You are signed up! </h2>
+                    <p>Welcome, { this.props.currentUser.fullName }!
+                        Your email is: <b> { this.props.currentUser.email }</b>
+                    </p>
+                </section>
+                )}
         return(
             <section>
                 <h2>SignUp</h2>
@@ -67,7 +79,9 @@ class Signup extends Component {
                     />
                     <button> Sign Up</button>
                 </form> 
-                    {this.state.message && <div>{this.state.message}</div>}
+                    {/* // if the message is not NULL then show the message  */}
+                    {this.state.message && <div>{this.state.message}</div>}  
+                            {/* IF       short if             THEN */} 
             </section>
         )
     }

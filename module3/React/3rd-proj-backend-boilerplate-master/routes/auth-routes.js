@@ -20,6 +20,7 @@ router.post("/signup", (req, res, next) => {
 
   User.findOne({ email })
   .then(foundUser => {
+    console.log('HERE WE ARE...', foundUser)
     if(foundUser !==null){
       res.status(401).json({ message: "A user with the same email is already registered!" })
       return;
@@ -28,7 +29,7 @@ router.post("/signup", (req, res, next) => {
     // encrypt the submitted password before saving
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const encryptedPassword = bcrypt.hashSync(originalPassword, salt);
-
+    // console.log('HERE WE ARE...')
       User.create({ fullName, email, encryptedPassword })
       .then(userDoc => {
         // if all good, log in the user automatically
@@ -46,6 +47,7 @@ router.post("/signup", (req, res, next) => {
 })
 
 //////////////// LOGIN /////////////////////
+//http://localhost:3001/api/login
 router.post("/login", (req, res, next) => {
   // LOGIN WITHOUT PASSPORT-LOCAL-STRATEGY:
 
@@ -99,12 +101,7 @@ router.post("/login", (req, res, next) => {
       // We are now logged in (notice req.user) => we can send req.user since we have it available
       // or userDoc, which is the placeholder how we named the user document we found in DB based on inputted email and password
       // res.json(req.user);
-      if (req.user) {
-        req.user.encryptedPassword = undefined;
-        res.json({ userDoc });
-      } else {
-        res.json({ userDoc: null });
-      } 
+      res.json({ userDoc });
     });
   })(req, res, next);
 })
